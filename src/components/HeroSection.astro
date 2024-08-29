@@ -1,0 +1,113 @@
+---
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  HeroText: string;
+  image: string; // Filename only
+  height?: string;
+  TYPE?: string;
+}
+
+const { HeroText, image, height, TYPE } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/hero_images/*.{jpeg,jpg,png,gif}"
+);
+
+const imagePath = `/src/assets/hero_images/${image}`;
+
+if (!images[imagePath])
+  throw new Error(
+    `"${image}" does not exist in glob: "src/assets/hero_images/*.{jpeg,jpg,png,gif}"`
+  );
+
+const optimizedImage = await getImage({
+  src: images[imagePath](),
+  format: "webp",
+  height: 1500,
+  width: 1500,
+});
+---
+
+<div
+  class={`Hero ${height}`}
+  style={`background-image: url(${optimizedImage.src});`}
+>
+  <div class={`HeroTextContainer ${TYPE}`}>
+    <p class="HeroText text-wrap">
+      {HeroText}
+    </p>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .Hero {
+    position: absolute;
+    height: 90%;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50px;
+  }
+
+  .Hero.mid {
+    height: 70%;
+  }
+
+  .HeroTextContainer {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding-left: 40px;
+    padding-right: 40px;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  .HeroText {
+    color: aliceblue;
+    line-height: 2.8rem;
+    font-weight: 500;
+    font-size: 3.2rem;
+    background-color: transparent;
+    /* font-family: "Bebas Neue", sans-serif; */
+    font-family: "Oswald", sans-serif;
+    transition:
+      font-size 0.3s ease,
+      transform 0.3s ease; /* Optional: Smooth transition */
+  }
+
+  .HeroTextContainer.review_class .HeroText {
+    width: 60%;
+    font-size: 1.8rem;
+  }
+
+  .HeroTextContainer.review_class {
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding-bottom: 50px;
+  }
+
+  .HeroTextContainer.Plan {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .HeroTextContainer.Plan .HeroText {
+    width: 50%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+</style>

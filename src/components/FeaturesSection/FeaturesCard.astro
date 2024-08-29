@@ -1,0 +1,64 @@
+---
+interface Props {
+  heading: string;
+  text: string;
+  iconClass: string;
+}
+
+const { heading, text, iconClass } = Astro.props as Props;
+---
+
+<div class="FeatureCard">
+  <div class="icons">
+    <i class=`fa-sharp fa-solid ${iconClass}`></i>
+  </div>
+  <h3 class="heading">{heading}</h3>
+  <p class="text">{text}</p>
+</div>
+
+<style>
+  .FeatureCard {
+    height: 200px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    transition: all ease 0.5s;
+
+    /* border: 1px solid #e3dddd; */
+  }
+
+  .heading {
+    font-weight: 400;
+    font-size: 1.5rem;
+  }
+  .text {
+    text-align: center;
+    text-wrap: wrap;
+  }
+
+  .icons {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background-color: rgb(238, 244, 244);
+    transition: all ease 0.7s;
+  }
+
+  .FeatureCard:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+  }
+
+  .FeatureCard:hover .icons {
+    background-color: antiquewhite;
+  }
+</style>
+
+<!-- <i class="fa-sharp fa-solid fa-wifi"></i>
+<i class="fa-sharp fa-regular fa-lightbulb"></i> 
+-->

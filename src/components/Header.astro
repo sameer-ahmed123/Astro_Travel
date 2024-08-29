@@ -1,0 +1,37 @@
+---
+---
+
+<div class="HeaderNav flex justify-between items-center gap-x-2 pl-4 pr-4 pt-4">
+  <a class="text-2xl text-zinc-900" href="/">Iterno</a>
+  <ul class="flex items-center gap-x-5 justify-normal" <li>
+    <li><a class="text-lg text-zinc-500" href="/">Home</a></li>
+    <li><a class="text-lg text-zinc-500" href="">Features</a></li>
+    <li><a class="text-lg text-zinc-500" href="">Community</a></li>
+    <li><a class="text-lg text-zinc-500" href="/blog">Blog</a></li>
+    <li>
+      <button class="border-2 border-black btn p-2 pl-6 pr-6 rounded-full">
+        Start Planning
+      </button>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .HeaderNav {
+  }
+  .btn {
+    transition: transform ease-in 0.2s;
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  /* .btn:hover {
+    transform: scale(1.05);
+  } */
+
+  @media (max-width: 500px) {
+    .HeaderNav {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+interface Props {
+  image: string;
+  alt: string;
+  heading: string;
+  text: string;
+  large: boolean;
+}
+
+const { heading, text, image, alt, large } = Astro.props;
+
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/trip_images/*.{jpeg,jpg,png,gif}"
+);
+const imagePath = `/src/assets/trip_images/${image}`;
+
+// console.log("image glob", images)
+
+if (!images[imagePath])
+  throw new Error(
+    `"${image}" does not exist in glob: "src/assets/trip_images/*.{jpeg,jpg,png,gif}"`
+  );
+---
+
+<article class={`item ${large ? "large" : ""}`}>
+  <Image
+    width={900}
+    height={900 / 1.5}
+    format="avif"
+    class="img"
+    src={images[imagePath]()}
+    alt={alt}
+  />
+  <div class="content">
+    <div class="text_cont">
+      <h2>{heading}</h2>
+      <p>
+        {text}
+      </p>
+    </div>
+
+    <button class="arrow_btn">
+      <i class="fa-sharp fa-solid fa-arrow-right"></i>
+    </button>
+  </div>
+</article>
+
+<style>
+  .item {
+    height: 100%;
+    padding: 20px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    animation: animation linear;
+    animation-timeline: view();
+    animation-range: entry 0 cover 30%;
+  }
+
+  .item:hover {
+    cursor: pointer;
+  }
+
+  .item.large {
+    place-content: start;
+    box-sizing: border-box;
+    height: 100%;
+    grid-row: span 2;
+    grid-auto-flow: column;
+    max-width: 100%;
+  }
+
+  .item.large .img {
+    height: 100%;
+    width: auto;
+    flex-grow: 1;
+  }
+
+  .item .img {
+    flex-grow: 1;
+    width: 100%;
+    min-height: 55%;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .content {
+    height: auto;
+    width: auto;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+  }
+
+  .text_cont {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 80%;
+    height: auto;
+  }
+
+  .arrow {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+  }
+  .arrow_btn {
+    margin-top: 5px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    flex-basis: 1;
+    transform: rotateZ(0deg);
+    transition: transform ease-in 0.4s;
+  }
+
+  .arrow_btn:hover {
+    transform: rotateZ(360deg) scale(1.05);
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin: 0 0 10px;
+  }
+
+  p {
+    margin: 0;
+    color: #555;
+    text-wrap: wrap;
+    width: 70%;
+    height: 100%;
+  }
+
+  @keyframes animation {
+    from {
+      /* scale: 0; */
+      opacity: 0;
+      transform: translateX(-120vw);
+    }
+    to {
+      /* scale: 1; */
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>

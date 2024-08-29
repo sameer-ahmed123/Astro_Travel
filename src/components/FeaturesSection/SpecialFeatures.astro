@@ -1,0 +1,77 @@
+---
+import FeaturesCard from "./FeaturesCard.astro";
+---
+
+<section class="special_sect">
+  <div class="w-auto h-96 flex flex-col items-center mt-8">
+    <h2 class="text-zinc-900 text-5xl text-center">
+      Special Features For Special Adventures
+    </h2>
+
+    <div class="Features_display">
+      <FeaturesCard
+        heading="Optimize your route"
+        text="For road trips and saving money on gas!Get the best route auto-rearranged"
+        iconClass="fa-map"
+      />
+
+      <FeaturesCard
+        heading="Optimize your route"
+        text="For road trips and saving money on gas!Get the best route auto-rearranged"
+        iconClass="fa-lightbulb"
+      />
+
+      <FeaturesCard
+        heading="Optimize your route"
+        text="For road trips and saving money on gas!Get the best route auto-rearranged"
+        iconClass="fa-wifi"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .Features_display {
+    height: 300px;
+    width: 80%;
+    padding: 5px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .special_sect {
+      height: 100vh;
+    }
+    .Features_display {
+      padding-top: 35px;
+      flex-direction: column;
+      gap: 50px;
+    }
+  }
+
+  @media (max-width: 770px) {
+    .special_sect {
+      height: 120vh;
+    }
+    
+  }
+  @media (max-width: 650px) {
+    .special_sect {
+      height: 120vh;
+    }
+    .Features_display {
+      padding-top: 35px;
+      flex-direction: column;
+      gap: 50px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .special_sect {
+      height: 130vh;
+    }
+   
+  }
+</style>

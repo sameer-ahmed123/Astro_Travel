@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import HeroSection from "../components/HeroSection.astro";
+
+---
+
+<Layout title="Blog">
+  <!-- <Image src={coolImage} alt={"sadasd"} /> -->
+  <main>
+    <HeroSection
+      
+      image="lone_tree.jpg"
+      HeroText="This is the blog page"
+    />
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: auto;
+    width: 100vw;
+    max-width: calc(100% - 2rem);
+    color: white;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+</style>
